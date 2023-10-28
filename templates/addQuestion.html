@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <form action="" method="POST" class="login-page">{% csrf_token %}
+        <h3>Add question</h3>
+        <label for="question">Question</label>
+        <textarea id="question" name="question" rows="3" cols="20" class="input-textarea" placeholder="Ask your Question"></textarea>
+
+        <button type="submit">Add</button>
+    </form>
+{% endblock %}

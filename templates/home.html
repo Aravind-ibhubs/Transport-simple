@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block sidecontent %}
+    <ul>
+        <li>About</li>
+        <li>Careers</li>
+        <li>Terms</li>
+        <li>Privacy</li>
+        <li>Acceptable Use</li>
+        <li>Business</li>
+        <li>Press</li>
+        <li>Your Ad Choices</li>
+        <li>Grievance Officer</li>
+    </ul>
+    <hr />    
+{% endblock %}
+
+{% block content %}
+    <div class="home-question-search">
+        <img 
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/12/User_icon_2.svg/1024px-User_icon_2.svg.png" 
+            class="question-user-logo" 
+        />
+        <input type="text" placeholder="What you want to ask or share" class="home-user-search" />
+    </div>
+    <div class="home-question-search">
+        <button class="home-option-button">
+            <a href="question/addQuestion/"><i class="fa-solid fa-pen"></i> Post</a>
+        </button>
+    </div>
+    <hr />
+    {% for ques in questions %}
+            <div class="home-question-block">
+                <div class="home-question-profile">
+                    <img 
+                        src="https://icon-library.com/images/generic-user-icon/generic-user-icon-9.jpg" 
+                        alt="Profile" 
+                        class="question-block-user-pictures"    
+                    />
+                    <div>
+                        <p>{{ ques.username }} . {% if ques.following %}Unfollow{% else %}Follow {% endif %}</p>
+                        <p>{% if ques.is_answered %}Answered by {{ ques.answer_by }} . {{ ques.posted_date }} {% else %}No answer . Last updated on {{ ques.posted_date }} {% endif %}</p>
+                    </div>
+                </div>
+                <h3>{{ ques.qes }}</h3>
+                {% if ques.answer %}
+                    <p>{{ ques.ans}}</p>
+                    {% if ques.picture %}
+                        <img src="https://qph.cf2.quoracdn.net/main-qimg-467cbd84e894d2f2d707f6ff160665d1" class="home-answer-picture"/>
+                    {% endif %}
+                    <div class="home-question-reaction">
+                        <div>
+                            <button class="home-question-upvote">Upvote <i class="fa-solid fa-up-long"></i>{% if ques.up_count > 0  %} . {{ques.up_count}} {% endif %}</button>
+                            <button class="home-question-down"><i class="fa-solid fa-down-long"></i>{% if ques.downvote_count > 0  %} . {{ques.downvote_count}} {% endif %}</button>
+                        </div>
+                        <button class="btn-comment"><i class="fa-solid fa-comment"></i> {% if ques.comments|length > 0%} {{ ques.comments|length }}{% endif %}</button>
+                        <button class="btn-comment"><i class="fa-solid fa-share"></i></button>
+                    </div>
+                {% else %}
+                    <button class="answer-btn"><a href="question/answer/{{ques.id}}">Answer</a> <i class="fa-regular fa-pen-to-square"></i></button>
+                {% endif %}
+            </div>
+            <hr />
+    {% endfor %}
+{% endblock %}
