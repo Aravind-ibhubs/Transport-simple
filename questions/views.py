@@ -15,7 +15,7 @@ def new_question(request):
     
     return render(request, 'addQuestion.html')
 
-def answer_ques(request, id):
+def answer_question(request, id):
     try:
         old_data = Question.objects.get(pk=id)
     except:
@@ -36,3 +36,28 @@ def answer_ques(request, id):
         return redirect('Home')
     
     return render(request, "addAnswer.html", context)
+
+def like_question(request, id):
+    try:
+        question = Question.objects.get(pk=id)
+    except:
+        return redirect("Home")
+    
+    if question:
+        question.up_count += 1
+        question.save()
+        
+        return redirect("Home")
+    
+def dislike_question(request, id):
+    try:
+        question = Question.objects.get(pk=id)
+    except:
+        return redirect("Home")
+    
+    if question:
+        question.downvote_count += 1
+        question.up_count -= 1
+        question.save()
+        
+        return redirect("Home")
