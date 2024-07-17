@@ -10,3 +10,7 @@ class Question(models.Model):
     picture = models.TextField()
     up_count = models.IntegerField()
     downvote_count = models.IntegerField()
+    
+class Student_Marks(models.Model):
+    name = models.CharField(max_length=250)
+    count = models.IntegerField()

@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from questions.models import Question
+from questions.models import Question, User
 from datetime import date
 
 def new_question(request):
@@ -61,3 +61,4 @@ def dislike_question(request, id):
         question.save()
         
         return redirect("Home")
+
